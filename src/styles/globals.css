@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 
+
 section .banner  {
     background: url('https://mobileaccessoriespk.com/wp-content/uploads/2022/10/Power-Bank-Smart-Watches-Earbuds-Mobile-Accessories-Price-in-Pakistan-Banner-1536x419.png');
     height: 100vh;
@@ -11,5 +12,13 @@ section .banner  {
     background-attachment: fixed;
 }
 
+
+
+
+nav {
+    width: 100%;
+    height: 80px;
+    background-color: azure;
+}
 
 
