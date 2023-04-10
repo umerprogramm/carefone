@@ -1,27 +1,14 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import banner from '../../assets/banner.png'
-import { GetServerSideProps, NextPage } from 'next';
 import Link from 'next/link';
 import { useState } from 'react';
-import CartIcon from '../components/CartIcon'
 
 
 
-interface Data {
-  _id : String,
-  title : string,
-  price  : String,
-  image  : string,
-  color : String,
-  slug : string
-}
 
-interface Props {
-  data: Data[];
-}
 
- const  Home: NextPage<Props> = ({data})=> {
+ const  Home = ({data})=> {
 
 
   return (
@@ -108,7 +95,7 @@ export default Home;
 export const getServerSideProps = async () => {
   // Fetch data from an API
   const res = await fetch('http://localhost:3000/api/products');
-  const data: Data = await res.json();
+  const data  = await res.json();
 
   // Pass data as props to the page component
   return { props: { data } };

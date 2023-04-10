@@ -1,23 +1,9 @@
 import React, { useState } from 'react'
-import { GetServerSideProps, NextPage } from 'next';
 import { MongoClient } from 'mongodb';
-import CartIcon from '@/components/CartIcon';
 import Head from 'next/head';
 
-interface Data {
-  _id : String,
-  title : string,
-  price  : String,
-  image  : string,
-  color : String,
-  slug : string
-}
 
-interface Props {
-  data: Data;
-}
-
-const product_details: NextPage<Props> = (product)=> {
+const product_details= (product)=> {
 
   const [count , setCount] = useState<number>(0)
 
@@ -125,7 +111,7 @@ async function getData(slug) {
   return data;
 }
 
-export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
+export const getServerSideProps = async (context) => {
   const slug = context.query.product_details
   const data = await getData(slug);
   
