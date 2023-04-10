@@ -3,6 +3,7 @@ import Image from 'next/image'
 import banner from '../../assets/banner.png'
 import Link from 'next/link';
 import { useState } from 'react';
+import { MongoClient } from 'mongodb';
 
 
 
@@ -92,11 +93,17 @@ import { useState } from 'react';
 export default Home;
 
 
-export const getServerSideProps = async () => {
-  // Fetch data from an API
-  const res = await fetch('http://localhost:3000/api/products');
-  const data  = await res.json();
+async function getData() {
+  const client = await MongoClient.connect("mongodb+srv://umer:niko12345@cluster0.5i8um.mongodb.net/?retryWrites=true&w=majority");
+  const db = client.db('carefone');
+  const data = await db.collection('products').find().toArray();
+  client.close();
+ console.log(data)
+  return data;
+}
 
-  // Pass data as props to the page component
-  return { props: { data } };
+export const getServerSideProps = async () => {
+  const data = await getData()
+
+  return { props: {data : JSON.parse(JSON.stringify(data))} };
 };
