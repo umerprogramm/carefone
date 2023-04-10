@@ -117,7 +117,7 @@ const product_details: NextPage<Props> = (product)=> {
 export default product_details;
 
 async function getData(slug) {
-  const client = await MongoClient.connect("mongodb+srv://umer:niko12345@cluster0.5i8um.mongodb.net/?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true });
+  const client = await MongoClient.connect("mongodb+srv://umer:niko12345@cluster0.5i8um.mongodb.net/?retryWrites=true&w=majority");
   const db = client.db('carefone');
   const data = await db.collection('products').findOne({slug : slug});
   client.close();

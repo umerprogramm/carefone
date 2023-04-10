@@ -3,10 +3,7 @@ import { MongoClient } from 'mongodb';
 const uri = 'mongodb+srv://umer:niko12345@cluster0.5i8um.mongodb.net/?retryWrites=true&w=majority';
 const dbName = "carefone";
 
-const client = new MongoClient(uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+const client = new MongoClient(uri);
 
 async function connectToDatabase() {
   const connceted = await client.connect();
