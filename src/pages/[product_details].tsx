@@ -1,17 +1,16 @@
-import React, { useState } from 'react'
+// import React, { useState } from 'react'
 import { MongoClient } from 'mongodb';
 import Head from 'next/head';
 
 
-const product_details= (product)=> {
+const product_details = (product)=> {
 
-  const [count , setCount] = useState<number>(0)
+  // const [count , setCount] = useState<number>(0)
 
-  const handleAddToCart = () => {
-    setCount(count + 1)
-  }
+  // const handleAddToCart = () => {
+  //   setCount(count + 1)
+  // }
 
-  console.log(product)
   return (
     <>
 
