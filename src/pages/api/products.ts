@@ -7,7 +7,7 @@ import { connectToDatabase } from '../../utils/mongodb';
 
 export default async function handler(
   req: NextApiRequest,
-  res: 
+  res
 ) {
   const { db } = await connectToDatabase();
   const users = await db.collection('products').find().toArray();
