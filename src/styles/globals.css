@@ -4,21 +4,148 @@
 
 
 
-section .banner  {
-    background: url('https://mobileaccessoriespk.com/wp-content/uploads/2022/10/Power-Bank-Smart-Watches-Earbuds-Mobile-Accessories-Price-in-Pakistan-Banner-1536x419.png');
-    height: 100vh;
-    background-repeat: no-repeat;
-    background-position:center;
-    background-attachment: fixed;
-}
 
 
 
+body {
+    color: #fff;
+    font-family: 'Open Sans';
+    
+  }
 
-nav {
+
+  #nav2 {
+    display: none;
+     background-color: #020617 ; 
+  }
+  
+  .banner {
+      padding: 6em 0 8em 0;
+      text-align: center;
     width: 100%;
-    height: 80px;
-    background-color: azure;
+    background-image: url(https://t4.ftcdn.net/jpg/05/72/54/67/360_F_572546714_2mn39TUv2f5Lmg7JRT9yvSkuTJERGyg8.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    box-shadow: inset 0 0 0 2000px rgba(0,0,0,0.5);
+    animation: change 4s infinite;
+  }
+  
+  .border {
+      width: 60%;
+      margin: 0 auto;
+      height: 47px;
+      border: 2px solid #fff;
+    border-bottom: 0;
+  }
+  .banner h3 {
+      margin: 0;
+    font-size:x-large;
+      color: #FFFFFF;
+      text-align: center;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5em;
+      padding: 0.5em 0 0 0;
+  }
+  
+  .banner p {
+      color: #FFFFFF;
+      font-size: 1em;
+      font-weight: bold;
+      margin: 1em 0 0 0;
+      line-height: 2em;
+      letter-spacing: 2px;
+    padding: 0 0 2em 0;
+  }
+  
+  .border-bottom {
+      border-top: 0;
+      border-bottom: 2px solid #fff !important;
+  }
+
+
+
+  @keyframes change {
+    0% {    
+        background-image: url(https://t4.ftcdn.net/jpg/05/72/54/67/360_F_572546714_2mn39TUv2f5Lmg7JRT9yvSkuTJERGyg8.jpg);
+    }
+    50% {
+        background-image: url(https://png.pngtree.com/background/20210717/original/pngtree-abstract-colorful-crystal-background-iridescent-texture-macro-panorama-faceted-gem-wide-picture-image_1417503.jpg);
+
+    }
+    100% {
+        background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKepYifIj7K6irUYWezKMUjbiT0iJohqbuStqdIHEISEy7IJ1o5Qb8qmPAnfvZYHSj9HI&usqp=CAU);
+
+    }
+  }
+
+  @media only screen and (max-width: 800px) {
+    #nav {
+      display: none;
+      background-color: #020617;
+    }
+    #nav2 {
+        display: block;
+        height: 80px;
+        background-color: #020617;
+
+      }
+      #nav2 img{
+        height: 40px;
+        position: absolute;
+        right: 0%;
+      }
+  }
+
+
+
+
+
+  .stripe_card{
+    padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  color: #f8f8f8;
+  background-color: rgb(255, 255, 255);
+height: 50vh;
+width: 50vh;
+}
+
+.stripe_parent {
+    display: flex;
+    justify-content: center;
 }
 
 
+/* Popup.css */
+.popup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+  
+  .popup-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    position: relative;
+    max-width: 80%;
+    text-align: center;
+  }
+  
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    color: #020617;
+  }

@@ -1,19 +1,129 @@
-// import React, { useState } from 'react'
+import React, { useState , useEffect,  } from 'react'
 import { MongoClient } from 'mongodb';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
+
 
 
 const product_details = (product)=> {
+  const router = useRouter()
 
-  // const [count , setCount] = useState<number>(0)
+  const [ toggle , settoggle  ] = useState(false)
+  const [image , setimage ] = useState('')
+  const [isOpen, setIsOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    addreas: '',
+    number : '',
+    productName :product.data.title
 
-  // const handleAddToCart = () => {
-  //   setCount(count + 1)
-  // }
+
+  });
+  const togglePopup = () => {
+    setIsOpen(!isOpen);
+  };
+  
+  const stars = [
+    'https://firebasestorage.googleapis.com/v0/b/carephone-d9589.appspot.com/o/zero-0-star-review-rating-260nw-1806462343-removebg-preview.png?alt=media&token=854bf4ab-2c8b-4319-98d6-b80ee6014088',
+    'https://firebasestorage.googleapis.com/v0/b/carephone-d9589.appspot.com/o/1-removebg-preview.png?alt=media&token=6fe84080-a5f2-4ae4-ae55-c74ec1171cb1',
+    'https://firebasestorage.googleapis.com/v0/b/carephone-d9589.appspot.com/o/2-removebg-preview.png?alt=media&token=1f175679-333c-46bf-9121-6c6befe14af6',
+    'https://firebasestorage.googleapis.com/v0/b/carephone-d9589.appspot.com/o/3-removebg-preview.png?alt=media&token=4fd20bf0-10cf-4a54-8b10-aaed5ac5febf',
+    'https://firebasestorage.googleapis.com/v0/b/carephone-d9589.appspot.com/o/4-removebg-preview.png?alt=media&token=056fe345-f68f-4be1-aa2d-c10d288d8cb8',
+    'https://firebasestorage.googleapis.com/v0/b/carephone-d9589.appspot.com/o/5-removebg-preview.png?alt=media&token=6a6822cd-d765-48a0-a1d6-230f62f66e20',
+]
+
+
+  useEffect(()=>{
+    let nav_item = document.getElementById('nav_item')
+    nav_item.style.display = 'none'
+    setimage(product.data.image)
+
+    console.log(product.reviews)
+
+  },[])
+
+
+  const getimage = (image)=>{
+    setimage(image)
+  }
+
+
+  const responseNavbar = ()=>{
+    
+    let nav = document.getElementById('nav2')
+    let nav_item = document.getElementById('nav_item')
+   if(toggle === false){
+     nav.style.height = '80px'
+     nav_item.style.display = 'none'
+     settoggle(true)
+    }
+    else {
+     nav.style.height = '300px'
+     nav_item.style.display = 'block'
+
+     settoggle(false)
+   }
+
+
+    
+  }
+
+  const handleSubmit =async () => {
+
+
+
+
+    const response = await fetch('/api/formData', {
+      method: 'POST',
+      body: JSON.stringify(formData),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    router.push('/done')
+
+
+  };
+
 
   return (
     <>
+      <div className='stripe_parent'>
 
+      </div>
+      <div>
+      {isOpen && (
+        <div className="popup">
+          <div className="popup-content">
+            <span  className="close" onClick={togglePopup}>
+              &times;
+            </span>
+            <div style={{display : 'flex' , flexDirection : 'column' ,marginTop : 50 ,color:'black'}}>
+            <input type='text' placeholder='Enter your Name'value={formData.name} name='name'
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+
+            />
+           <textarea placeholder='Enter your addreas' name='addreas'  value={formData.addreas}
+           onChange={(e) => setFormData({ ...formData, addreas: e.target.value })}
+
+           />
+           <input type="number"  placeholder='Enter your Phone Number' name='number'  value={formData.number}
+           onChange={(e) => setFormData({ ...formData, number: e.target.value })}
+           />
+           <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-3"  onClick={handleSubmit}>Submit</button>
+
+
+            </div>
+ 
+
+            
+        Pay
+          </div>
+          
+        </div>
+      )}
+    </div>
 
 <Head>
         <title>Carephone</title>
@@ -24,38 +134,61 @@ const product_details = (product)=> {
 
       </Head>
 
-      <nav>
-      <a href="" className="p-10 flex items-center  bg-slate-50 h-11">
-        <span className="self-center text-xl font-extrabold whitespace-nowrap text-blue-700 bg-slate-50">CAREPHONE
+      <nav style={{ backgroundColor :'#0f172a'}}  id="nav" className='flex items-center bg-slate-50 h-30'>
+      <a style={{ backgroundColor :'#0f172a'}} href="/" className="p-10 flex items-center  bg-slate-50 h-11">
+        <span style={{ backgroundColor :'#0f172a'}} className="self-center text-xl font-extrabold whitespace-nowrap text-blue-700 bg-slate-50">CAREPHONE
         </span>
         </a>
+        
       </nav>
-<section className="text-gray-600 body-font overflow-hidden">
+
+      <nav style={{ backgroundColor :'#0f172a'}}  id="nav2">
+      <a style={{ backgroundColor :'#0f172a'}} href='/'  className="p-10 flex items-center  bg-slate-50 h-11">
+        <span style={{ backgroundColor :'#0f172a'}} className="self-center text-xl font-extrabold whitespace-nowrap text-blue-700 bg-slate-50">CAREPHONE
+        </span>
+        <img onClick={responseNavbar} src='https://cdn-icons-png.flaticon.com/512/7216/7216128.png'/>
+        </a>
+        <div id="nav_item">
+
+      
+        <a href="/" className="p-10 flex items-center  bg-slate-50 h-11">
+        <span className="self-center   whitespace-nowrap text-blue-700 bg-slate-50 tracking-widest">HOME
+        </span>
+        
+        </a>
+
+        <a href="/" className="p-10 flex items-center  bg-slate-50 h-11">
+        <span className="self-center   whitespace-nowrap text-blue-700 bg-slate-50 tracking-widest">SHOP
+        </span>
+        
+        </a>
+
+        <a href="/" className="p-10 flex items-center  bg-slate-50 h-11">
+        <span className="self-center   whitespace-nowrap text-blue-700 bg-slate-50 tracking-widest">CONTACT US
+        </span>
+        
+        </a>
+        </div>
+      </nav>
+<section style={{ backgroundColor :'#020617'}} className="text-gray-600 body-font overflow-hidden">
   <div className="container px-5 py-24 mx-auto">
-    <div className="lg:w-4/5 mx-auto flex flex-wrap">
-      <img alt="ecommerce" className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src={product.data.image}/>
+    <div className="lg:w-4/5 mx-auto flex flex-wrap flex-col">
+      <img alt="ecommerce" className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src={image}/>
+      <div style={{ display : 'flex', marginTop : '10px', marginLeft : '10px', cursor : 'pointer'}}>
+      <img onClick={()=> getimage(product.data.img1)} style={{width : '60px' , height : '60px', marginLeft : '50px', cursor : 'pointer'}} src={product.data.img1}/>
+          <img onClick={()=> getimage(product.data.img2)} style={{width : '60px' , height : '60px', marginLeft : '50px', cursor : 'pointer'}}   src={product.data.img2}/>
+          <img onClick={()=> getimage(product.data.image)} style={{width : '60px' , height : '60px', marginLeft : '50px' , cursor : 'pointer'}} src={product.data.img3}/>
+      </div>
       <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
         <h2 className="text-sm title-font text-gray-500 tracking-widest">Carefone</h2>
-        <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{product.data.title}</h1>
+          <div style={{ display : 'flex'}}>
+          <img src={stars[product.data.stars]} style={{width : '80px', height : '50px', cursor : 'pointer' }} />
+        <p style={{marginTop : '10px'}}>({product.data.stars})</p>
+          </div>
+          
+        <h1 style={{ color :'white'}}  className="text-gray-900 text-3xl title-font font-medium mb-1">{product.data.title}</h1>
         <div className="flex mb-4">
-          {/* <span className="flex items-center">
-            <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-4 h-4 text-indigo-500" viewBox="0 0 24 24">
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-            </svg>
-            <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-4 h-4 text-indigo-500" viewBox="0 0 24 24">
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-            </svg>
-            <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-4 h-4 text-indigo-500" viewBox="0 0 24 24">
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-            </svg>
-            <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-4 h-4 text-indigo-500" viewBox="0 0 24 24">
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-            </svg>
-            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-4 h-4 text-indigo-500" viewBox="0 0 24 24">
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-            </svg>
-            <span className="text-gray-600 ml-3">4 Reviews</span>
-          </span> */}
+         
           <span className="flex ml-3 pl-3 py-2 border-l-2 border-gray-200 space-x-2s">
             <a className="text-gray-500">
               <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-5 h-5" viewBox="0 0 24 24">
@@ -74,26 +207,101 @@ const product_details = (product)=> {
             </a>
           </span>
         </div>
-        <p className="leading-relaxed">Fam locavore kickstarter distillery. Mixtape chillwave tumeric sriracha taximy chia microdosing tilde DIY. XOXO fam indxgo juiceramps cornhole raw denim forage brooklyn. Everyday carry +1 seitan poutine tumeric. Gastropub blue bottle austin listicle pour-over, neutra jean shorts keytar banjo tattooed umami cardigan.</p>
+        <p style={{ color :'white'}} className="leading-relaxed">Fam locavore kickstarter distillery. Mixtape chillwave tumeric sriracha taximy chia microdosing tilde DIY. XOXO fam indxgo juiceramps cornhole raw denim forage brooklyn. Everyday carry +1 seitan poutine tumeric. Gastropub blue bottle austin listicle pour-over, neutra jean shorts keytar banjo tattooed umami cardigan.</p>
         <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
-          <div className="flex">
-            <span className="mr-3">Color</span>
-            <button className="border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none"></button>
-          </div>
+          
          
         </div>
-        <div className="flex">
-          <span className="title-font font-medium text-2xl text-gray-900">{product.data.price}</span>
-         <a style={{ marginLeft : "12px"}} href='https://api.whatsapp.com/send?phone=+923452792636'>
-
-          <button className="flex ml-auto text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-800 rounded">Contact on WhatsApp</button>
-         </a>
+        <div className="flex flex-col">
+          <span style={{ color : 'white'}} className="title-font font-medium text-2xl text-gray-900">{product.data.price}</span>
+          <div className='flex flex-col my-10'>
+          <a className="bg-blue-500 hover:bg-blue-700 text-white my-2  py-2 px-3 text-center" >
+                <button onClick={togglePopup} >
+                       Order Now
+                </button>
     
+                </a>
+                <button className='bg-blue-500 hover:bg-blue-700 text-white my-2  py-2 px-3 text-center'  >
+                       Add to Cart
+                </button>
+    
+          </div>
+         
         </div>
       </div>
     </div>
   </div>
+  <div>
+
+        <h1 style={{ marginBottom : '100px',fontSize : '20px', fontWeight : 800, display : 'flex' ,justifyContent : 'center' , alignItems : 'center' ,color : 'white' }}>Customer Review</h1>
+            
+        <section style={{ backgroundColor :'#020617'}} >
+  <div style={{ backgroundColor :'#020617'}} className="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
+      <form style={{ backgroundColor :'#020617'}}  action="http://localhost:3000/api/review" method='post' className="space-y-8">
+      <div>
+              <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300" style={{ color : 'white'}}>Your public Name</label>
+              <input name='name' type="text" id="email" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light" placeholder="Carl johnson" required/>
+          </div>
+          <div>
+              <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300" style={{ color : 'white'}}>Your email</label>
+              <input  name='email' type="email" id="email" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light" placeholder="name@example.com" required/>
+          </div>
+          
+          <div className="sm:col-span-2">
+              <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400" style={{ color : 'white'}}>Your Review</label>
+              <textarea name='review' id="message" rows={6} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Leave a Review..."></textarea>
+              <input 
+              value={product.slug}
+              name='slug'
+              style={{ display : "none"}}
+              />
+          </div>
+          <div>
+          <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">select stars</label>
+<select name='star' id="countries" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+  <option style={{ color : 'white'}}  selected>Give stars</option>
+  <option  value="1">🌟</option>
+  <option value="2">🌟🌟</option>
+  <option value="3">🌟🌟🌟</option>
+  <option value="4">🌟🌟🌟🌟</option>
+  <option value="5">🌟🌟🌟🌟🌟</option>
+
+</select>
+          </div>
+          <div style={{display : 'flex' , justifyContent : 'center', alignItems : 'center' }}>
+          <button className="bg-blue-500 hover:bg-blue-700 text-white  border-blue-700 rounded w-28 h-10">
+   submit
+</button>
+          </div>
+      </form>
+  </div>
 </section>
+{
+  product.reviews.map((value, index) =>{
+    return(
+      <div key={index} style={{ display : 'flex' , flexDirection :  'column', backgroundColor : '#020617'}}>
+      <div style={{ display : 'flex' , flexDirection :  'row' }}>
+       <img style={{height : "40px", borderRadius : "50%" , marginLeft : "10px" }} src='https://media.istockphoto.com/id/1305665241/vector/anonymous-gender-neutral-face-avatar-incognito-head-silhouette-stock-illustration.jpg?s=612x612&w=0&k=20&c=qA6GUTalFyrBCRVUzQgp2B5zODxmOA4NXTBcw9notYY='/>
+      <h3 style={{ marginTop : "10px" , marginLeft : '10px'}}>{value.name}</h3>
+      </div>
+<img src={stars[value.star]} style={{marginLeft : '10px' ,width : '80px', height : '50px', cursor : 'pointer' }} />
+    
+    <p style={{ marginLeft : '15px' , marginTop : '10px'}}>{value.review}</p>
+ 
+ </div> 
+    )
+
+  })
+}
+ 
+           
+
+
+
+  </div>
+ 
+</section>
+
 
     </>
   )
@@ -105,16 +313,48 @@ async function getData(slug) {
   const client = await MongoClient.connect("mongodb+srv://umer:niko12345@cluster0.5i8um.mongodb.net/?retryWrites=true&w=majority");
   const db = client.db('carefone');
   const data = await db.collection('products').findOne({slug : slug});
+  const reviews = await db.collection('review').findOne({slug : slug});
   client.close();
- console.log(data)
-  return data;
+  return data ;
 }
+
+async function getReviews(slug){
+  const client = await MongoClient.connect("mongodb+srv://umer:niko12345@cluster0.5i8um.mongodb.net/?retryWrites=true&w=majority");
+  const db = client.db('carefone');
+  const reviews = await db.collection('review').find({slug : slug}).toArray();
+  client.close();
+  return reviews ;
+}
+
+
+async function getReview(slug){
+  const client = await MongoClient.connect("mongodb+srv://umer:niko12345@cluster0.5i8um.mongodb.net/?retryWrites=true&w=majority");
+  const db = client.db('carefone');
+  const reviews = await db.collection('review').findOne({slug : slug});
+  client.close();
+  return reviews ;
+}
+
 
 export const getServerSideProps = async (context) => {
   const slug = context.query.product_details
   const data = await getData(slug);
-  
-  return { props: {data : JSON.parse(JSON.stringify(data))}  };
+  const reviews = await getReviews(slug);
+    const review = await getReview(slug);
+    console.log(context.query.name)
+
+
+
+  return { 
+    props: {
+      data : JSON.parse(JSON.stringify(data)),
+       reviews :JSON.parse(JSON.stringify(reviews)),
+       review :JSON.parse(JSON.stringify(review)),
+       slug : slug
+      },
+       
+
+};
 
 
 

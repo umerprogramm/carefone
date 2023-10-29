@@ -2,15 +2,52 @@ import Head from 'next/head'
 import Image from 'next/image'
 import banner from '../../assets/banner.png'
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { MongoClient } from 'mongodb';
+import CartIcon from '../components/CartIcon'
 
 
 
 
 
  const  Home = ({data})=> {
+  const [ num , setNum ] = useState(0)
+  const [ toggle , settoggle  ] = useState(false)
 
+  const stars = [
+    'https://firebasestorage.googleapis.com/v0/b/carephone-d9589.appspot.com/o/zero-0-star-review-rating-260nw-1806462343-removebg-preview.png?alt=media&token=854bf4ab-2c8b-4319-98d6-b80ee6014088',
+    'https://firebasestorage.googleapis.com/v0/b/carephone-d9589.appspot.com/o/1-removebg-preview.png?alt=media&token=6fe84080-a5f2-4ae4-ae55-c74ec1171cb1',
+    'https://firebasestorage.googleapis.com/v0/b/carephone-d9589.appspot.com/o/2-removebg-preview.png?alt=media&token=1f175679-333c-46bf-9121-6c6befe14af6',
+    'https://firebasestorage.googleapis.com/v0/b/carephone-d9589.appspot.com/o/3-removebg-preview.png?alt=media&token=4fd20bf0-10cf-4a54-8b10-aaed5ac5febf',
+    'https://firebasestorage.googleapis.com/v0/b/carephone-d9589.appspot.com/o/4-removebg-preview.png?alt=media&token=056fe345-f68f-4be1-aa2d-c10d288d8cb8',
+    'https://firebasestorage.googleapis.com/v0/b/carephone-d9589.appspot.com/o/5-removebg-preview.png?alt=media&token=6a6822cd-d765-48a0-a1d6-230f62f66e20',
+]
+
+  useEffect(()=>{
+    let nav_item = document.getElementById('nav_item')
+    nav_item.style.display = 'none'
+  },[])
+
+
+  const responseNavbar = ()=>{
+    
+    let nav = document.getElementById('nav2')
+    let nav_item = document.getElementById('nav_item')
+   if(toggle === false){
+     nav.style.height = '80px'
+     nav_item.style.display = 'none'
+     settoggle(true)
+    }
+    else {
+     nav.style.height = '300px'
+     nav_item.style.display = 'block'
+
+     settoggle(false)
+   }
+
+
+    
+  }
 
   return (
     <>
@@ -21,39 +58,86 @@ import { MongoClient } from 'mongodb';
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <nav>
-      <a href="" className="p-10 flex items-center  bg-slate-50 h-11">
-        <span className="self-center text-xl font-extrabold whitespace-nowrap text-blue-700 bg-slate-50">CAREPHONE
+      <nav style={{ backgroundColor : '#020617'}} id="nav" className='flex items-center bg-slate-50 h-30 justify-center'>
+      <a style={{ backgroundColor : '#020617'}} href="/" className="p-10 flex items-center  bg-slate-50 h-11">
+        <span style={{ backgroundColor : '#020617'}} className="self-center text-xl font-extrabold whitespace-nowrap text-blue-700 bg-slate-50">CAREPHONE
         </span>
         </a>
+        <a style={{ backgroundColor : '#020617'}} href="/" className="p-10 flex items-center  bg-slate-50 h-11">
+        <span  style={{ backgroundColor : '#020617'}}  className="self-center   whitespace-nowrap text-blue-700 bg-slate-50 tracking-widest">HOME
+        </span>
+        
+        </a>
+
+        <a style={{ backgroundColor : '#020617'}} href="/" className="p-10 flex items-center  bg-slate-50 h-11">
+        <span  style={{ backgroundColor : '#020617'}} className="self-center   whitespace-nowrap text-blue-700 bg-slate-50 tracking-widest">SHOP
+        </span>
+        
+        </a>
+
+        <a style={{ backgroundColor : '#020617'}} href="/" className="p-10 flex items-center  bg-slate-50 h-11">
+        <span  style={{ backgroundColor : '#020617'}} className="self-center   whitespace-nowrap text-blue-700 bg-slate-50 tracking-widest">CONTACT US
+        </span>
+        
+        </a>
+        
       </nav>
 
-<section>
+      <nav className=" bg-slate-950 h-11" id="nav2">
+      <a  className="p-10 flex items-center   bg-slate-950 h-11">
+        <span className="self-center text-xl font-extrabold whitespace-nowrap text-blue-700 bg-slate-950">CAREPHONE
+        </span>
+        <img onClick={responseNavbar} src='https://cdn-icons-png.flaticon.com/512/7216/7216128.png'/>
+        </a>
+        <div  id="nav_item">
 
-  <div className='banner'>
-  <div className="flex items-center justify-center h-screen p-0 text-center flex-col ">
-    <h1 className='text-blue-700 font-extrabold text-4xl leading-normal'>EMPOWER YOUR MOBILE EXPERIENCE WITH THE PERFECT ACCESSORIES</h1>
+      
+        <a  href="/" className="p-10 flex items-center   bg-slate-950 h-11">
+        <span    className="self-center   whitespace-nowrap text-blue-700 bg-slate-950 tracking-widest">HOME
+        </span>
+        
+        </a>
+
+        <a href="/" className="p-10 flex items-center  bg-slate-950 h-11">
+        <span  className="self-center   whitespace-nowrap text-blue-700  bg-slate-950 tracking-widest">SHOP
+        </span>
+        
+        </a>
+
+        <a href="/" className="p-10 flex items-center  bg-slate-950 h-11">
+        <span  className="self-center   whitespace-nowrap text-blue-700 bg-slate-950 tracking-widest">CONTACT US
+        </span>
+        
+        </a>
+        </div>
+      </nav>
+
+
+      <div className="banner">
+    <div className="border"> </div>
+    <h3>THE Carefone</h3>
+    <p>We care about your phone</p>
+    <div className="border border-bottom"> </div>
   </div>
-  </div>
-</section>
-<div className="bg-white">
-  <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-    <h2 className="text-2xl font-bold tracking-tight text-gray-900">Mobile Accessories</h2>
+
+<div style={{ backgroundColor :'#020617'}}  className="bg-white">
+  <div style={{ backgroundColor :'#020617'}}  className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+    <h2 style={{ color : 'white' }} className="text-2xl font-bold tracking-tight text-gray-900">Mobile Accessories</h2>
     <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
     {
       data.map(value => {
         return(
           <>
-          <div>
+          <div style={{ backgroundColor : '#020617'}}>
                <Link href={`/${value.slug}`}>
-      <div className="group relative">
+      <div  className="group relative">
         <div className="min-h-80 aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
           <img src={value.image} alt="Front of men&#039;s Basic Tee in black." className="h-full w-full object-cover object-center lg:h-full lg:w-full"/>
         </div>
         <div className="mt-4 flex justify-between">
           <div>
             <h3 className="text-sm text-gray-700">
-              <div className='font-medium' >
+              <div className='font-medium text-slate-50 font-serif font-medium font-xl' >
                 <span aria-hidden="true" className="absolute inset-0 ">
                 <p className="mt-1 text-sm text-stone-50 w-20 pl-2 bg-red-600">HOT SALE</p>
 
@@ -61,10 +145,18 @@ import { MongoClient } from 'mongodb';
                  {value.title}          
                 </div>
             </h3>
-            <p className="mt-1 text-sm text-gray-500">{value.color}</p>
           </div>
-          <p className="text-sm font-medium text-gray-900 pl-2">{value.price}</p>
+          <p className="text-sm font-black	text-xl	 text-red-900 pl-2 ">{value.price}</p>
+        
         </div>
+        <div style={{ display : 'flex'}}>
+          {
+            stars.indexOf(stars[value.stars]) === 0 ? <img src={stars[value.stars]} style={{width : '100px', height : '100px', cursor : 'pointer' }} /> :
+            <img src={stars[value.stars]} style={{width : '80px', height : '40px', cursor : 'pointer' }} />
+          }
+          
+        <p style={{marginTop : '10px'}}>({value.stars})</p>
+          </div>
       </div>
                     </Link>
                     </div>
@@ -98,7 +190,6 @@ async function getData() {
   const db = client.db('carefone');
   const data = await db.collection('products').find().toArray();
   client.close();
- console.log(data)
   return data;
 }
 
